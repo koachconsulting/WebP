@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koach Consulting - Invoice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        .invoice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #1A3B6B;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-svg {
+            width: 120px;
+            height: 60px;
+        }
+
+        .invoice-info {
+            text-align: right;
+        }
+
+        .invoice-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1A3B6B;
+            margin-bottom: 10px;
+        }
+
+        .invoice-number {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .invoice-date {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .billing-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .billing-info h3 {
+            color: #1A3B6B;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 5px;
+        }
+
+        .company-info {
+            line-height: 1.8;
+        }
+
+        .services-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .services-table th {
+            background: #1A3B6B;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .services-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .services-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .quantity, .rate, .amount {
+            text-align: right;
+        }
+
+        .total-section {
+            margin-left: auto;
+            width: 300px;
+            margin-top: 20px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .total-row.final {
+            border-bottom: 3px solid #1A3B6B;
+            font-weight: bold;
+            font-size: 18px;
+            color: #1A3B6B;
+        }
+
+        .payment-terms {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #1A3B6B;
+        }
+
+        .payment-terms h3 {
+            color: #1A3B6B;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .editable {
+            background: transparent;
+            border: none;
+            outline: none;
+            border-bottom: 1px dashed #ccc;
+            min-width: 100px;
+        }
+
+        .editable:focus {
+            border-bottom: 1px solid #1A3B6B;
+        }
+
+        .print-button {
+            background: linear-gradient(145deg, #1A3B6B, #0f2a4a);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(26, 59, 107, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 59, 107, 0.4);
+        }
+
+        /* Bar animation from original logo */
+        @keyframes barPulse {
+            0% { transform: scaleY(.6); }
+            50% { transform: scaleY(1); }
+            100% { transform: scaleY(.7); }
+        }
+        .chart-bar {
+            transform-origin: center bottom;
+            animation: barPulse 1.8s ease-in-out infinite;
+        }
+        .chart-bar.bar-1 { animation-delay: 0s; }
+        .chart-bar.bar-2 { animation-delay: .25s; }
+        .chart-bar.bar-3 { animation-delay: .5s; }
+
+        @media (max-width: 768px) {
+            .invoice-container {
+                padding: 20px;
+            }
+
+            .invoice-header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .invoice-info {
+                text-align: left;
+            }
+
+            .billing-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .logo-svg {
+                width: 100px;
+                height: 50px;
+            }
+
+            .services-table {
+                font-size: 14px;
+            }
+
+            .services-table th,
+            .services-table td {
+                padding: 10px 5px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .invoice-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .editable {
+                border-bottom: none;
+            }
+
+            .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- Header with Logo -->
+        <div class="invoice-header">
+            <div class="logo-section">
+                <svg class="logo-svg" viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Bar chart -->
+                    <g transform="translate(18,18)">
+                        <!-- Bars (3 bars as in original) -->
+                        <rect class="chart-bar bar-1" x="6" y="22" width="8" height="20" rx="1.6" fill="#1A3B6B"></rect>
+                        <rect class="chart-bar bar-2" x="22" y="14" width="8" height="28" rx="1.6" fill="#1A3B6B"></rect>
+                        <rect class="chart-bar bar-3" x="38" y="6" width="8" height="36" rx="1.6" fill="#1A3B6B"></rect>
+                    </g>
+
+                    <!-- Magnifying glass circle -->
+                    <g transform="translate(6,6)">
+                        <circle cx="68" cy="68" r="28" fill="none" stroke="#1A3B6B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></circle>
+                        <!-- handle -->
+                        <rect x="92" y="92" width="22" height="6" rx="3" transform="rotate(45 103 95)" fill="#1A3B6B"></rect>
+                    </g>
+
+                    <!-- small accent inner circle -->
+                    <circle cx="68" cy="68" r="6" fill="#1A3B6B" opacity="0.06"></circle>
+                    
+                    <!-- KOACH CONSULTING text -->
+                    <text x="140" y="75" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1A3B6B">KOACH CONSULTING</text>
+                    
+                    <!-- Data & Strategy subtitle -->
+                    <text x="140" y="92" font-family="Arial, sans-serif" font-size="8" font-weight="600" fill="#1A3B6B" letter-spacing="1.5px" text-transform="uppercase">DATA &amp; STRATEGY</text>
+                </svg>
+            </div>
+            <div class="invoice-info">
+                <div class="invoice-title">INVOICE</div>
+                <div class="invoice-number">Invoice #: <span class="editable" contenteditable="true">INV-001</span></div>
+                <div class="invoice-date">Date: <span class="editable" contenteditable="true">January 15, 2025</span></div>
+            </div>
+        </div>
+
+        <!-- Billing Information -->
+        <div class="billing-section">
+            <div class="billing-info">
+                <h3>From:</h3>
+                <div class="company-info">
+                    <strong>Koach Consulting</strong><br>
+                    19 Main St, FL 2<br>
+                    Tonawanda, NY 14150<br>
+                    <br>
+                    Email: koachconsultinginc@gmail.com<br>
+                    Phone: <span class="editable" contenteditable="true">(716) 555-0123</span>
+                </div>
+            </div>
+            <div class="billing-info">
+                <h3>Bill To:</h3>
+                <div class="company-info">
+                    <span class="editable" contenteditable="true">Client Company Name</span><br>
+                    <span class="editable" contenteditable="true">Client Address</span><br>
+                    <span class="editable" contenteditable="true">City, State ZIP</span><br>
+                    <br>
+                    Email: <span class="editable" contenteditable="true">client@email.com</span><br>
+                    Phone: <span class="editable" contenteditable="true">(555) 123-4567</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Table -->
+        <table class="services-table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th class="quantity">Qty</th>
+                    <th class="rate">Rate</th>
+                    <th class="amount">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="editable" contenteditable="true">Software Consulting Services</span></td>
+                    <td class="quantity"><span class="editable" contenteditable="true">20</span> hrs</td>
+                    <td class="rate">$<span class="editable" contenteditable="true">150.00</span></td>
+                    <td class="amount">$<span class="editable" contenteditable="true">3,000.00</span></td>
+                </tr>
+                <tr>
+                    <td><span class="editable" contenteditable="true">Strategic Planning Session</span></td>
+                    <td class="quantity"><span class="editable" contenteditable="true">4</span> hrs</td>
+                    <td class="rate">$<span class="editable" contenteditable="true">200.00</span></td>
+                    <td class="amount">$<span class="editable" contenteditable="true">800.00</span></td>
+                </tr>
+                <tr>
+                    <td><span class="editable" contenteditable="true">Implementation & Training</span></td>
+                    <td class="quantity"><span class="editable" contenteditable="true">8</span> hrs</td>
+                    <td class="rate">$<span class="editable" contenteditable="true">175.00</span></td>
+                    <td class="amount">$<span class="editable" contenteditable="true">1,400.00</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Totals -->
+        <div class="total-section">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span>$<span class="editable" contenteditable="true">5,200.00</span></span>
+            </div>
+            <div class="total-row">
+                <span>Tax (8.25%):</span>
+                <span>$<span class="editable" contenteditable="true">429.00</span></span>
+            </div>
+            <div class="total-row final">
+                <span>Total:</span>
+                <span>$<span class="editable" contenteditable="true">5,629.00</span></span>
+            </div>
+        </div>
+
+        <!-- Payment Terms -->
+        <div class="payment-terms">
+            <h3>Payment Terms</h3>
+            <p>Payment is due within <span class="editable" contenteditable="true">30</span> days of invoice date. Late payments may incur a 1.5% monthly service charge. Please make checks payable to "Koach Consulting" or use electronic payment to koachconsultinginc@gmail.com.</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Thank you for choosing Koach Consulting for your technology and strategic needs.</p>
+            <p>Questions? Contact us at koachconsultinginc@gmail.com</p>
+        </div>
+    </div>
+
+    <script>
+        // Auto-calculate totals when amounts change
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('editable')) {
+                console.log('Field updated:', e.target.textContent);
+            }
+        });
+
+        // Print functionality
+        function printInvoice() {
+            window.print();
+        }
+
+        // Add print button dynamically
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.invoice-container');
+            const printButton = document.createElement('button');
+            printButton.textContent = 'Print Invoice';
+            printButton.className = 'print-button';
+            printButton.onclick = printInvoice;
+            container.insertBefore(printButton, container.firstChild);
+        });
+    </script>
+</body>
+</html>
