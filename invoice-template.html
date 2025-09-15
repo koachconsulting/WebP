@@ -403,10 +403,16 @@
             const amountElement = document.querySelector(`[data-row="${rowNumber}"].amount-value`);
             
             if (qtyElement && rateElement && amountElement) {
-                const qty = parseFloat(qtyElement.textContent) || 0;
-                const rate = parseFloat(rateElement.textContent) || 0;
+                // Clean the text content to remove any non-numeric characters
+                const qtyText = qtyElement.textContent.replace(/[^0-9.]/g, '');
+                const rateText = rateElement.textContent.replace(/[^0-9.]/g, '');
+                
+                const qty = parseFloat(qtyText) || 0;
+                const rate = parseFloat(rateText) || 0;
                 const amount = qty * rate;
+                
                 amountElement.textContent = amount.toFixed(2);
+                console.log(`Row ${rowNumber}: ${qty} x ${rate} = ${amount.toFixed(2)}`);
             }
         }
         
@@ -436,8 +442,11 @@
         document.addEventListener('input', function(e) {
             if (e.target.classList.contains('qty-input') || e.target.classList.contains('rate-input')) {
                 const rowNumber = e.target.getAttribute('data-row');
-                calculateLineAmount(rowNumber);
-                calculateTotals();
+                // Add a small delay to ensure the text content is updated
+                setTimeout(() => {
+                    calculateLineAmount(rowNumber);
+                    calculateTotals();
+                }, 10);
             } else if (e.target.classList.contains('tax-rate')) {
                 calculateTotals();
             }
@@ -453,6 +462,21 @@
                 calculateTotals();
             }
         }, true);
+        
+        // Also listen for keyup events for more responsive calculations
+        document.addEventListener('keyup', function(e) {
+            if (e.target.classList.contains('qty-input') || e.target.classList.contains('rate-input')) {
+                const rowNumber = e.target.getAttribute('data-row');
+                setTimeout(() => {
+                    calculateLineAmount(rowNumber);
+                    calculateTotals();
+                }, 100);
+            } else if (e.target.classList.contains('tax-rate')) {
+                setTimeout(() => {
+                    calculateTotals();
+                }, 100);
+            }
+        });
 
         // Print functionality
         function printInvoice() {
