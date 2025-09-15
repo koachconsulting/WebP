@@ -63,6 +63,20 @@
             transform: scale(1.05);
         }
 
+        /* Bar animation from original logo */
+        @keyframes barPulse {
+            0% { transform: scaleY(.6); }
+            50% { transform: scaleY(1); }
+            100% { transform: scaleY(.7); }
+        }
+        .chart-bar {
+            transform-origin: center bottom;
+            animation: barPulse 1.8s ease-in-out infinite;
+        }
+        .chart-bar.bar-1 { animation-delay: 0s; }
+        .chart-bar.bar-2 { animation-delay: .25s; }
+        .chart-bar.bar-3 { animation-delay: .5s; }
+
         .services {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -251,22 +265,30 @@
     <div class="container">
         <header>
             <div class="logo">
-                <svg class="logo-svg" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Chart bars -->
-                    <rect x="60" y="140" width="25" height="40" fill="#1A3B6B" rx="2"/>
-                    <rect x="95" y="120" width="25" height="60" fill="#1A3B6B" rx="2"/>
-                    <rect x="130" y="90" width="25" height="90" fill="#1A3B6B" rx="2"/>
-                    <rect x="165" y="60" width="25" height="120" fill="#1A3B6B" rx="2"/>
+                <svg class="logo-svg" viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Bar chart -->
+                    <g transform="translate(18,18)">
+                        <!-- Bars (3 bars as in original) -->
+                        <rect class="chart-bar bar-1" x="6" y="22" width="8" height="20" rx="1.6" fill="#1A3B6B"></rect>
+                        <rect class="chart-bar bar-2" x="22" y="14" width="8" height="28" rx="1.6" fill="#1A3B6B"></rect>
+                        <rect class="chart-bar bar-3" x="38" y="6" width="8" height="36" rx="1.6" fill="#1A3B6B"></rect>
+                    </g>
+
+                    <!-- Magnifying glass circle -->
+                    <g transform="translate(6,6)">
+                        <circle cx="68" cy="68" r="28" fill="none" stroke="#1A3B6B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></circle>
+                        <!-- handle -->
+                        <rect x="92" y="92" width="22" height="6" rx="3" transform="rotate(45 103 95)" fill="#1A3B6B"></rect>
+                    </g>
+
+                    <!-- small accent inner circle -->
+                    <circle cx="68" cy="68" r="6" fill="#1A3B6B" opacity="0.06"></circle>
                     
-                    <!-- Magnifying glass over the last 3 bars -->
-                    <circle cx="147" cy="125" r="50" fill="none" stroke="#1A3B6B" stroke-width="8"/>
-                    <line x1="185" y1="163" x2="210" y2="188" stroke="#1A3B6B" stroke-width="8" stroke-linecap="round"/>
+                    <!-- KOACH CONSULTING text -->
+                    <text x="140" y="75" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#1A3B6B">KOACH CONSULTING</text>
                     
-                    <!-- KOACH text -->
-                    <text x="240" y="125" font-family="Arial, sans-serif" font-size="90" font-weight="bold" fill="#1A3B6B">KOACH</text>
-                    
-                    <!-- CONSULTING text -->
-                    <text x="240" y="155" font-family="Arial, sans-serif" font-size="18" font-weight="normal" fill="#1A3B6B" letter-spacing="6px">Consulting</text>
+                    <!-- Data & Strategy subtitle -->
+                    <text x="140" y="95" font-family="Arial, sans-serif" font-size="10" font-weight="600" fill="#1A3B6B" letter-spacing="2px" text-transform="uppercase">DATA &amp; STRATEGY</text>
                 </svg>
             </div>
         </header>
