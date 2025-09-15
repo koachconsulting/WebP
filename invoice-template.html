@@ -189,22 +189,27 @@
             border-radius: 3px;
         }
 
-        .print-button {
+        .print-button, .recalc-button {
             background: linear-gradient(145deg, #1A3B6B, #0f2a4a);
             color: white;
             padding: 12px 24px;
             border: none;
             border-radius: 8px;
             margin-bottom: 20px;
+            margin-right: 10px;
             cursor: pointer;
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(26, 59, 107, 0.3);
             transition: all 0.3s ease;
         }
 
-        .print-button:hover {
+        .print-button:hover, .recalc-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(26, 59, 107, 0.4);
+        }
+
+        .recalc-button {
+            background: linear-gradient(145deg, #28a745, #20a040);
         }
 
         /* Stationary bars - no animation */
@@ -261,7 +266,7 @@
                 border-bottom: none;
             }
 
-            .print-button {
+            .print-button, .recalc-button {
                 display: none;
             }
         }
@@ -515,14 +520,40 @@
             window.print();
         }
 
-        // Add print button dynamically
+        // Recalculate all totals manually
+        function recalculateAll() {
+            // Calculate all line amounts
+            for (let i = 1; i <= 3; i++) {
+                calculateLineAmount(i);
+            }
+            // Calculate totals
+            calculateTotals();
+            alert('Invoice recalculated!');
+        }
+
+        // Add buttons dynamically
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.querySelector('.invoice-container');
+            
+            // Create button container
+            const buttonContainer = document.createElement('div');
+            buttonContainer.style.cssText = 'margin-bottom: 20px;';
+            
+            // Recalculate button
+            const recalcButton = document.createElement('button');
+            recalcButton.textContent = 'Recalculate Totals';
+            recalcButton.className = 'recalc-button';
+            recalcButton.onclick = recalculateAll;
+            
+            // Print button
             const printButton = document.createElement('button');
             printButton.textContent = 'Print Invoice';
             printButton.className = 'print-button';
             printButton.onclick = printInvoice;
-            container.insertBefore(printButton, container.firstChild);
+            
+            buttonContainer.appendChild(recalcButton);
+            buttonContainer.appendChild(printButton);
+            container.insertBefore(buttonContainer, container.firstChild);
         });
     </script>
 </body>
