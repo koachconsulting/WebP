@@ -170,6 +170,19 @@
             border-bottom: 1px solid #1A3B6B;
         }
 
+        .date-input {
+            border: none;
+            background: transparent;
+            color: #666;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .date-input:focus {
+            outline: 1px solid #1A3B6B;
+            border-radius: 3px;
+        }
+
         .print-button {
             background: linear-gradient(145deg, #1A3B6B, #0f2a4a);
             color: white;
@@ -253,10 +266,13 @@
         <!-- Header with Logo -->
         <div class="invoice-header">
             <div class="logo-section">
-                <svg class="logo-svg" viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg">
+                <svg class="logo-svg" viewBox="0 0 500 120" role="img" aria-labelledby="logoTitle logoDesc" xmlns="http://www.w3.org/2000/svg">
+                    <title id="logoTitle">Koach Consulting logo</title>
+                    <desc id="logoDesc">Blue magnifying glass enclosing a three-bar chart indicating data analysis.</desc>
+
                     <!-- Bar chart -->
                     <g transform="translate(18,18)">
-                        <!-- Bars (3 bars as in original) -->
+                        <!-- Bars (use grouped rects) -->
                         <rect class="chart-bar bar-1" x="6" y="22" width="8" height="20" rx="1.6" fill="#1A3B6B"></rect>
                         <rect class="chart-bar bar-2" x="22" y="14" width="8" height="28" rx="1.6" fill="#1A3B6B"></rect>
                         <rect class="chart-bar bar-3" x="38" y="6" width="8" height="36" rx="1.6" fill="#1A3B6B"></rect>
@@ -269,20 +285,20 @@
                         <rect x="92" y="92" width="22" height="6" rx="3" transform="rotate(45 103 95)" fill="#1A3B6B"></rect>
                     </g>
 
-                    <!-- small accent inner circle -->
+                    <!-- small accent inner circle to make it modern -->
                     <circle cx="68" cy="68" r="6" fill="#1A3B6B" opacity="0.06"></circle>
                     
-                    <!-- KOACH CONSULTING text -->
-                    <text x="140" y="75" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#1A3B6B">KOACH CONSULTING</text>
+                    <!-- Brand text -->
+                    <text x="140" y="75" font-family="Poppins, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="1px" fill="#1A3B6B">KOACH CONSULTING</text>
                     
-                    <!-- Data & Strategy subtitle -->
-                    <text x="140" y="95" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#1A3B6B" letter-spacing="2px" text-transform="uppercase">DATA &amp; STRATEGY</text>
+                    <!-- Subtitle -->
+                    <text x="140" y="95" font-family="Poppins, Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="2px" fill="#1A3B6B" text-transform="uppercase">Data &amp; Strategy</text>
                 </svg>
             </div>
             <div class="invoice-info">
                 <div class="invoice-title">INVOICE</div>
                 <div class="invoice-number">Invoice #: <span class="editable" contenteditable="true">INV-001</span></div>
-                <div class="invoice-date">Date: <span class="editable" contenteditable="true">January 15, 2025</span></div>
+                <div class="invoice-date">Date: <input type="date" class="date-input" value="2025-01-15"></div>
             </div>
         </div>
 
@@ -325,19 +341,19 @@
             <tbody>
                 <tr>
                     <td><span class="editable" contenteditable="true">Software Consulting Services</span></td>
-                    <td class="quantity"><span class="editable qty-input" contenteditable="true" data-row="1">20</span> hrs</td>
+                    <td class="quantity"><span class="editable qty-input" contenteditable="true" data-row="1">20</span></td>
                     <td class="rate">$<span class="editable rate-input" contenteditable="true" data-row="1">150.00</span></td>
                     <td class="amount">$<span class="amount-value" data-row="1">3,000.00</span></td>
                 </tr>
                 <tr>
                     <td><span class="editable" contenteditable="true">Strategic Planning Session</span></td>
-                    <td class="quantity"><span class="editable qty-input" contenteditable="true" data-row="2">4</span> hrs</td>
+                    <td class="quantity"><span class="editable qty-input" contenteditable="true" data-row="2">4</span></td>
                     <td class="rate">$<span class="editable rate-input" contenteditable="true" data-row="2">200.00</span></td>
                     <td class="amount">$<span class="amount-value" data-row="2">800.00</span></td>
                 </tr>
                 <tr>
                     <td><span class="editable" contenteditable="true">Implementation & Training</span></td>
-                    <td class="quantity"><span class="editable qty-input" contenteditable="true" data-row="3">8</span> hrs</td>
+                    <td class="quantity"><span class="editable qty-input" contenteditable="true" data-row="3">8</span></td>
                     <td class="rate">$<span class="editable rate-input" contenteditable="true" data-row="3">175.00</span></td>
                     <td class="amount">$<span class="amount-value" data-row="3">1,400.00</span></td>
                 </tr>
