@@ -398,21 +398,45 @@
     <script>
         // Calculate individual line amounts
         function calculateLineAmount(rowNumber) {
+            console.log(`Calculating for row: ${rowNumber}`);
+            
             const qtyElement = document.querySelector(`[data-row="${rowNumber}"].qty-input`);
             const rateElement = document.querySelector(`[data-row="${rowNumber}"].rate-input`);
             const amountElement = document.querySelector(`[data-row="${rowNumber}"].amount-value`);
             
+            console.log('Elements found:', {
+                qty: qtyElement,
+                rate: rateElement,
+                amount: amountElement
+            });
+            
             if (qtyElement && rateElement && amountElement) {
+                // Get raw text content
+                const qtyRaw = qtyElement.textContent || qtyElement.innerText || '0';
+                const rateRaw = rateElement.textContent || rateElement.innerText || '0';
+                
+                console.log('Raw text:', { qtyRaw, rateRaw });
+                
                 // Clean the text content to remove any non-numeric characters
-                const qtyText = qtyElement.textContent.replace(/[^0-9.]/g, '');
-                const rateText = rateElement.textContent.replace(/[^0-9.]/g, '');
+                const qtyText = qtyRaw.replace(/[^0-9.]/g, '').trim();
+                const rateText = rateRaw.replace(/[^0-9.]/g, '').trim();
+                
+                console.log('Cleaned text:', { qtyText, rateText });
                 
                 const qty = parseFloat(qtyText) || 0;
                 const rate = parseFloat(rateText) || 0;
                 const amount = qty * rate;
                 
+                console.log('Parsed values:', { qty, rate, amount });
+                
                 amountElement.textContent = amount.toFixed(2);
-                console.log(`Row ${rowNumber}: ${qty} x ${rate} = ${amount.toFixed(2)}`);
+                console.log(`Row ${rowNumber} FINAL: ${qty} x ${rate} = ${amount.toFixed(2)}`);
+            } else {
+                console.error(`Missing elements for row ${rowNumber}:`, {
+                    qtyElement: !!qtyElement,
+                    rateElement: !!rateElement,
+                    amountElement: !!amountElement
+                });
             }
         }
         
@@ -420,10 +444,16 @@
         function calculateTotals() {
             let subtotal = 0;
             
+            console.log('Calculating totals...');
+            
             // Sum all line amounts
-            document.querySelectorAll('.amount-value').forEach(element => {
-                subtotal += parseFloat(element.textContent) || 0;
+            document.querySelectorAll('.amount-value').forEach((element, index) => {
+                const value = parseFloat(element.textContent) || 0;
+                console.log(`Amount ${index + 1}: ${element.textContent} = ${value}`);
+                subtotal += value;
             });
+            
+            console.log('Subtotal:', subtotal);
             
             // Update subtotal
             document.getElementById('subtotal').textContent = subtotal.toFixed(2);
@@ -436,6 +466,8 @@
             // Calculate final total
             const finalTotal = subtotal + taxAmount;
             document.getElementById('final-total').textContent = finalTotal.toFixed(2);
+            
+            console.log('Tax rate:', taxRate, 'Tax amount:', taxAmount, 'Final total:', finalTotal);
         }
         
         // Auto-calculate when quantities, rates, or tax rate change
