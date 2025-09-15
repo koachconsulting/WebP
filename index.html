@@ -56,11 +56,6 @@
             max-width: 100%;
             height: auto;
             max-height: 120px;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-svg:hover {
-            transform: scale(1.05);
         }
 
         /* Stationary bars - no animation for website */
@@ -258,31 +253,68 @@
             <div class="logo">
                 <svg class="logo-svg" viewBox="0 0 500 120" role="img" aria-labelledby="logoTitle logoDesc" xmlns="http://www.w3.org/2000/svg">
                     <title id="logoTitle">Koach Consulting logo</title>
-                    <desc id="logoDesc">Blue magnifying glass enclosing a three-bar chart indicating data analysis.</desc>
+                    <desc id="logoDesc">Professional logo with bar chart inside magnifying glass for data analysis consulting.</desc>
+                    
+                    <defs>
+                        <style>
+                            .logo-text { 
+                                font-family: Arial, sans-serif; 
+                                font-weight: bold; 
+                                fill: #1A3B6B; 
+                                letter-spacing: 1px;
+                            }
+                            .logo-subtitle { 
+                                font-family: Arial, sans-serif; 
+                                font-weight: 600; 
+                                fill: #1A3B6B; 
+                                letter-spacing: 2px;
+                            }
+                            .chart-bar { 
+                                fill: #1A3B6B; 
+                            }
+                            .magnifier-ring { 
+                                fill: none; 
+                                stroke: #1A3B6B; 
+                                stroke-width: 5; 
+                                stroke-linecap: round; 
+                                stroke-linejoin: round;
+                            }
+                            .magnifier-handle { 
+                                fill: #1A3B6B; 
+                            }
+                            .accent-dot { 
+                                fill: #1A3B6B; 
+                                opacity: 0.1;
+                            }
+                        </style>
+                    </defs>
 
-                    <!-- Bar chart -->
-                    <g transform="translate(18,18)">
-                        <!-- Bars (use grouped rects) -->
-                        <rect class="chart-bar bar-1" x="6" y="22" width="8" height="20" rx="1.6" fill="#1A3B6B"></rect>
-                        <rect class="chart-bar bar-2" x="22" y="14" width="8" height="28" rx="1.6" fill="#1A3B6B"></rect>
-                        <rect class="chart-bar bar-3" x="38" y="6" width="8" height="36" rx="1.6" fill="#1A3B6B"></rect>
+                    <!-- Bar chart positioned INSIDE the magnifying glass -->
+                    <g>
+                        <!-- Three bars with ascending height, centered in magnifying glass circle -->
+                        <!-- Circle will be at (60, 60) with radius 30 -->
+                        <rect class="chart-bar" x="45" y="52" width="6" height="16" rx="1.5"/>
+                        <rect class="chart-bar" x="54" y="46" width="6" height="22" rx="1.5"/>
+                        <rect class="chart-bar" x="63" y="40" width="6" height="28" rx="1.5"/>
                     </g>
 
-                    <!-- Magnifying glass circle -->
-                    <g transform="translate(6,6)">
-                        <circle cx="68" cy="68" r="28" fill="none" stroke="#1A3B6B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></circle>
-                        <!-- handle -->
-                        <rect x="92" y="92" width="22" height="6" rx="3" transform="rotate(45 103 95)" fill="#1A3B6B"></rect>
+                    <!-- Magnifying glass drawn OVER the bars -->
+                    <g>
+                        <!-- Main magnifying glass circle -->
+                        <circle class="magnifier-ring" cx="60" cy="60" r="30"/>
+                        
+                        <!-- Magnifying glass handle -->
+                        <line class="magnifier-ring" x1="82" y1="82" x2="95" y2="95" stroke-width="5" stroke-linecap="round"/>
                     </g>
-
-                    <!-- small accent inner circle to make it modern -->
-                    <circle cx="68" cy="68" r="6" fill="#1A3B6B" opacity="0.06"></circle>
+                    
+                    <!-- Subtle accent dot in center -->
+                    <circle class="accent-dot" cx="60" cy="60" r="3"/>
                     
                     <!-- Brand text -->
-                    <text x="140" y="75" font-family="Poppins, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="1px" fill="#1A3B6B">KOACH CONSULTING</text>
+                    <text class="logo-text" x="110" y="58" font-size="36">KOACH CONSULTING</text>
                     
                     <!-- Subtitle -->
-                    <text x="140" y="95" font-family="Poppins, Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="2px" fill="#1A3B6B" text-transform="uppercase">DATA &amp; STRATEGY</text>
+                    <text class="logo-subtitle" x="110" y="78" font-size="16">DATA &amp; STRATEGY</text>
                 </svg>
             </div>
         </header>
